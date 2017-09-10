@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="mongocsharpdriver" Version="2.4.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Exline.Notifier\Exline.Notifier.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Exline.Framework">
+      <HintPath>..\..\exframeworks\Exline.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Exline.Framework.Data">
+      <HintPath>..\..\exframeworks\Exline.Framework.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Exline.Framework.Data.MongoDb">
+      <HintPath>..\..\exframeworks\Exline.Framework.Data.MongoDb.dll</HintPath>
+    </Reference>
+    <Reference Include="Exline.Framework.Logger">
+      <HintPath>..\..\exframeworks\Exline.Framework.Logger.dll</HintPath>
+    </Reference>
+    <Reference Include="Exline.Framework.PushNotification">
+      <HintPath>..\..\exframeworks\Exline.Framework.PushNotification.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

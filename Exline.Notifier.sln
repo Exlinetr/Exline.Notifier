@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{32BCA1AB-F305-4ED0-BD4B-188ACDFBD6B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exline.Notifier.Web.Api", "src\Exline.Notifier.Web.Api\Exline.Notifier.Web.Api.csproj", "{8E13873E-4499-4E7B-92DB-3C467A28C9C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{20971207-DA57-47DF-A42D-721A38262A45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exline.Notifier.Core", "src\Exline.Notifier.Core\Exline.Notifier.Core.csproj", "{6286EB84-8F63-42A4-BA79-FDE124722007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exline.Notifier.Data", "src\Exline.Notifier.Data\Exline.Notifier.Data.csproj", "{826248E2-C9FF-4541-A36F-050CA64B8CB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exline.Notifier", "src\Exline.Notifier\Exline.Notifier.csproj", "{FE6A9E04-10DB-47A5-9687-A810439C1218}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exframeworks", "exframeworks", "{CFD98193-8DA5-43D8-856B-CC2D85A9B59E}"
+	ProjectSection(SolutionItems) = preProject
+		exframeworks\Exline.Framework.Data.dll = exframeworks\Exline.Framework.Data.dll
+		exframeworks\Exline.Framework.Data.MongoDb.dll = exframeworks\Exline.Framework.Data.MongoDb.dll
+		exframeworks\Exline.Framework.dll = exframeworks\Exline.Framework.dll
+		exframeworks\Exline.Framework.Logger.dll = exframeworks\Exline.Framework.Logger.dll
+		exframeworks\Exline.Framework.PushNotification.dll = exframeworks\Exline.Framework.PushNotification.dll
+		exframeworks\Exline.Framework.PushNotification.FirebaseCloudMessage.dll = exframeworks\Exline.Framework.PushNotification.FirebaseCloudMessage.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E13873E-4499-4E7B-92DB-3C467A28C9C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E13873E-4499-4E7B-92DB-3C467A28C9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E13873E-4499-4E7B-92DB-3C467A28C9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E13873E-4499-4E7B-92DB-3C467A28C9C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6286EB84-8F63-42A4-BA79-FDE124722007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6286EB84-8F63-42A4-BA79-FDE124722007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6286EB84-8F63-42A4-BA79-FDE124722007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6286EB84-8F63-42A4-BA79-FDE124722007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{826248E2-C9FF-4541-A36F-050CA64B8CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{826248E2-C9FF-4541-A36F-050CA64B8CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{826248E2-C9FF-4541-A36F-050CA64B8CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{826248E2-C9FF-4541-A36F-050CA64B8CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE6A9E04-10DB-47A5-9687-A810439C1218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE6A9E04-10DB-47A5-9687-A810439C1218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE6A9E04-10DB-47A5-9687-A810439C1218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE6A9E04-10DB-47A5-9687-A810439C1218}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E13873E-4499-4E7B-92DB-3C467A28C9C7} = {32BCA1AB-F305-4ED0-BD4B-188ACDFBD6B8}
+		{6286EB84-8F63-42A4-BA79-FDE124722007} = {32BCA1AB-F305-4ED0-BD4B-188ACDFBD6B8}
+		{826248E2-C9FF-4541-A36F-050CA64B8CB7} = {32BCA1AB-F305-4ED0-BD4B-188ACDFBD6B8}
+		{FE6A9E04-10DB-47A5-9687-A810439C1218} = {32BCA1AB-F305-4ED0-BD4B-188ACDFBD6B8}
+	EndGlobalSection
+EndGlobal

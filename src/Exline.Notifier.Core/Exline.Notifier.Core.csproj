@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Exline.Notifier.Data\Exline.Notifier.Data.csproj" />
+    <ProjectReference Include="..\Exline.Notifier\Exline.Notifier.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Exline.Framework">
+      <HintPath>..\..\exframeworks\Exline.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Exline.Framework.Logger">
+      <HintPath>..\..\exframeworks\Exline.Framework.Logger.dll</HintPath>
+    </Reference>
+    <Reference Include="Exline.Framework.PushNotification">
+      <HintPath>..\..\exframeworks\Exline.Framework.PushNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="Exline.Framework.PushNotification.FirebaseCloudMessage">
+      <HintPath>..\..\exframeworks\Exline.Framework.PushNotification.FirebaseCloudMessage.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
