@@ -7,7 +7,7 @@ namespace Exline.Notifier.Data
 {
     public interface IGroupData : IData
     {
-        Result Insert(string name);
+        Result Create(string name);
         Result Remove(string groupId);
         Result NameUpdate(string groupId, string name);
         Result AddClient(string groupId, string clientId);

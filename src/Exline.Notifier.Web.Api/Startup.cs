@@ -12,6 +12,8 @@ namespace Exline.Notifier.Web.Api
 {
     public class Startup
     {
+        public static Config Config { get; set; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -21,16 +23,18 @@ namespace Exline.Notifier.Web.Api
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            var config = new Config().SetDbServer(new DbServer()
-            {
-                DatabaseName = Environment.GetEnvironmentVariable("dbName"),
-                Host = Environment.GetEnvironmentVariable("dbServer"),
-                Password = Environment.GetEnvironmentVariable("dbPassword"),
-                Username = Environment.GetEnvironmentVariable("dbUser"),
-                Port = int.Parse(Environment.GetEnvironmentVariable("dbPort")),
-                Type = DbType.Mongodb,
-                TimeOut = new TimeSpan(0, 0, 0, 10)
-            }).SetLogPath(Environment.GetEnvironmentVariable("logpath"));
+            Config = new Config()
+                .SetDbServer(new DbServer()
+                {
+                    DatabaseName = Environment.GetEnvironmentVariable("dbName"),
+                    Host = Environment.GetEnvironmentVariable("dbServer"),
+                    Port = int.Parse(Environment.GetEnvironmentVariable("dbPort")),
+                    Username = Environment.GetEnvironmentVariable("dbUser"),
+                    Password = Environment.GetEnvironmentVariable("dbPassword"),
+                    Type = DbType.Mongodb,
+                    TimeOut = new TimeSpan(0, 0, 0, 10),
+                })
+            .SetLogPath(Environment.GetEnvironmentVariable("logpath"));
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -48,14 +52,7 @@ namespace Exline.Notifier.Web.Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc().UseRouter(x =>
-            {
-                x.MapRoute("default", "/", new
-                {
-                    controller = "home",
-                    action = "index"
-                });
-            });
+            app.UseMvc();
         }
     }
 }

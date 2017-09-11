@@ -11,5 +11,24 @@ namespace Exline.Notifier.Core.Services
         {
             Config = config;
         }
+
+
+        protected virtual void OnException(Exception ex)
+        {
+
+        }
+
+        protected int PageIndexControl(int pageIndex)
+        {
+            if (pageIndex < 0)
+                pageIndex = 0;
+            return pageIndex;
+        }
+        protected int PageSizeControl(int pageSize)
+        {
+            if (pageSize < 0)
+                pageSize = 20;
+            return pageSize;
+        }
     }
 }

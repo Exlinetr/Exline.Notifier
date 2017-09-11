@@ -47,7 +47,7 @@ namespace Exline.Notifier
         }
         public void OK(T data)
         {
-            Set(true, string.Empty, (int)Framework.Net.Http.ResponseStatus.OK, string.Empty, data);
+            Set(true, "$basarili", (int)Framework.Net.Http.ResponseStatus.OK, string.Empty, data);
         }
         public void Error()
         {
@@ -61,17 +61,26 @@ namespace Exline.Notifier
             HelpLink = helpLink;
             Data = data;
         }
-        public void SetError(string message, int code, string helpLink = null)
+        public void SetErr(string message, int code = 0, string helpLink = null)
         {
             Set(false, message, code, helpLink);
         }
-        public void SetError(Exception ex)
+        public void SetErr(Exception ex)
         {
             Set(false, ex.Message, (int)Framework.Net.Http.ResponseStatus.INTERNAL_SERVER_ERROR, ex.HelpLink);
         }
-        public void SetSucces(string message, int code)
+        public void SetSucces(string message, int code = (int)Framework.Net.Http.ResponseStatus.OK)
         {
-            Set(true, message, code);
+            Set(true, message, default(T), code);
+        }
+        public void SetSucces(string message, T data)
+        {
+            Set(true, message, data, (int)Framework.Net.Http.ResponseStatus.OK);
+        }
+
+        public static implicit operator bool(Result<T> result)
+        {
+            return result.IsOk;
         }
 
     }

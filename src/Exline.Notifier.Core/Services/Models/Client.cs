@@ -6,6 +6,10 @@ namespace Exline.Notifier.Core.Services.Models
 {
     public class Client : Base
     {
+        public Client(string token, DeviceType device) : this(new Data.Collections.ClientCollection(token, device))
+        {
+
+        }
         public Client(Data.Collections.ClientCollection clientCollection)
         {
             Id = clientCollection.Id;

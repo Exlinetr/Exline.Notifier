@@ -20,6 +20,7 @@ namespace Exline.Notifier.Web.Api
                 .UseApplicationInsights()
                 .Build();
 
+
             host.Run();
         }
     }

@@ -26,9 +26,6 @@
     <Reference Include="Exline.Framework.Logger">
       <HintPath>..\..\exframeworks\Exline.Framework.Logger.dll</HintPath>
     </Reference>
-    <Reference Include="Exline.Framework.PushNotification">
-      <HintPath>..\..\exframeworks\Exline.Framework.PushNotification.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

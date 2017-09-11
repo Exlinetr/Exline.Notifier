@@ -11,13 +11,13 @@ namespace Exline.Notifier.Core
             Framework.PushNotification.IClient client = null;
             switch (clientCollection.DeviceType)
             {
-                case Framework.PushNotification.DeviceType.Web:
+                case DeviceType.WEB:
                     client = new Framework.PushNotification.FirebaseCloudMessage.FCMClient(clientCollection.Token, Framework.PushNotification.DeviceType.Andorid);
                     break;
-                case Framework.PushNotification.DeviceType.iOS:
+                case DeviceType.IOS:
                     client = null;
                     break;
-                case Framework.PushNotification.DeviceType.Andorid:
+                case DeviceType.ANDORID:
                     client = new Framework.PushNotification.FirebaseCloudMessage.FCMClient(clientCollection.Token, Framework.PushNotification.DeviceType.Andorid);
                     break;
                 default:

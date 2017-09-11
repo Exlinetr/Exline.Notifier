@@ -36,7 +36,7 @@ namespace Exline.Notifier.Data.Mongodb
             result.Data = DbConnector.Filter<GroupCollection>(pageIndex, pageSize);
             return result;
         }
-        public Result Insert(string name)
+        public Result Create(string name)
         {
             return new Result(DbConnector.Insert<GroupCollection>(new GroupCollection()
             {

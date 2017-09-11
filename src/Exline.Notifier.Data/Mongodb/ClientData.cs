@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Exline.Notifier.Data.Collections;
 using MongoDB.Bson;
+using System.Linq;
 
 namespace Exline.Notifier.Data.Mongodb
 {
@@ -18,7 +19,17 @@ namespace Exline.Notifier.Data.Mongodb
             return DbConnector.Exists<ClientCollection>(x => x.Token == token);
         }
 
-        public Result Insert(ClientCollection client)
+        public ClientCollection GetById(string clientId)
+        {
+            return DbConnector.Find<ClientCollection>(x => x.Id == clientId);
+        }
+
+        public string GetTokenById(string clientId)
+        {
+            return DbConnector.Filter<ClientCollection, string>(x => x.Id == clientId, x => x.Token).FirstOrDefault();
+        }
+
+        public Result Create(ClientCollection client)
         {
             return new Result(DbConnector.Insert<ClientCollection>(client));
         }
@@ -36,5 +47,12 @@ namespace Exline.Notifier.Data.Mongodb
             return result;
         }
 
+        public PaginationResult<ClientCollection> GetList(int pageIndex, int pageSize)
+        {
+            PaginationResult<ClientCollection> result = new PaginationResult<ClientCollection>();
+            result.TotalCount = (int)DbConnector.Count<ClientCollection>();
+            result.Data = DbConnector.Filter<ClientCollection>(pageIndex, pageSize);
+            return result;
+        }
     }
 }
