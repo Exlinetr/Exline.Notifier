@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Exline.Notifier.Data.Mongodb
 {
     internal abstract class BaseData<T> : Data.BaseData<T> where T : IData

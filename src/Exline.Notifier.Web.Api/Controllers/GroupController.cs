@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Exline.Notifier.Web.Api.Controllers
@@ -42,6 +38,28 @@ namespace Exline.Notifier.Web.Api.Controllers
         public Result<PaginationResult<Core.Services.Models.Group>> GetList(int pageIndex, int pageSize)
         {
             return Service.GetList(pageIndex, pageSize);
+        }
+
+        [HttpPost]
+        [Route("api/group/{id}/clientadd")]
+        public Result ClientAdd(string id,string clientId)
+        {
+            return Service.ClientAdd(id,clientId);
+        }
+
+        [HttpDelete]
+        [Route("api/group/{id}/clientremove")]
+        public Result ClientRemove(string id,string clientId)
+        {
+            return Service.ClientRemove(id,clientId);
+        }
+
+        [HttpGet]
+        [Route("api/group/{id}/clients/{pageIndex}/{pageSize}")]
+        public Result<PaginationResult<Core.Services.Models.Client>> GetClients(string id,int pageIndex,int pageSize)
+        {
+            return Service.GetClients(id,pageIndex,pageSize);
+
         }
 
     }

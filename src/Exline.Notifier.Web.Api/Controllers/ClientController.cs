@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Exline.Notifier.Web.Api.Controllers
 {
     public class ClientController : BaseController<Core.Services.ClientService>
     {
-        public ClientController() : base()
+        public ClientController() 
+            : base()
         {
             Service = new Core.Services.ClientService(Config);
         }

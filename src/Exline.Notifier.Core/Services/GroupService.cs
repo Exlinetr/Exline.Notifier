@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Exline.Notifier.Core.Services
 {
@@ -78,6 +75,76 @@ namespace Exline.Notifier.Core.Services
             }
             return result;
         }
+
+        public Result<PaginationResult<Models.Client>> GetClients(string groupId,int pageIndex,int pageSize)
+        {
+            Result<PaginationResult<Models.Client>> result=new Result<PaginationResult<Models.Client>>();
+            try
+            {
+                if(string.IsNullOrEmpty(groupId))
+                {
+                    result.SetErr("$gecersiz_group_id");
+                    return result;
+                }
+                pageIndex = PageIndexControl(pageIndex);
+                pageSize = PageSizeControl(pageSize);
+
+                Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create();
+                PaginationResult<Data.Collections.ClientCollection> pageResult = groupData.GetClients(groupId,pageIndex, pageSize);
+                result.OK(pageResult.To<Models.Client>(x => new Models.Client(x)));
+            }
+            catch (Exception ex)
+            {
+                result.SetErr(ex);
+                OnException(ex);
+            }
+            return result;
+        }
+        public Result ClientAdd(string groupId,string clientId)
+        {
+            Result result=new Result();
+            try
+            {
+                if(string.IsNullOrEmpty(groupId)){
+                    result.SetErr("$gecersiz_group_id");
+                }
+                if(string.IsNullOrEmpty(clientId)){
+                    result.SetErr("$gecersiz_client_id");
+                }
+                Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create();
+                result=groupData.ClientAdd(groupId,clientId);
+                result.OK();
+            }
+            catch (Exception ex)
+            {
+                result.SetErr(ex);
+                OnException(ex);
+            }
+            return result;
+        }
+        public Result ClientRemove(string groupId,string clientId)
+        {
+            Result result=new Result();
+            try
+            {
+                if(string.IsNullOrEmpty(groupId)){
+                    result.SetErr("$gecersiz_group_id");
+                }
+                if(string.IsNullOrEmpty(clientId)){
+                    result.SetErr("$gecersiz_client_id");
+                }
+                Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create();
+                result=groupData.ClientRemove(groupId,clientId);
+                result.OK();
+            }
+            catch (Exception ex)
+            {
+                result.SetErr(ex);
+                OnException(ex);
+            }
+            return result;
+        }
+
 
     }
 }

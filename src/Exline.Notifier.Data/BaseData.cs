@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Exline.Notifier.Data
 {
     internal abstract class BaseData<T> where T : IData

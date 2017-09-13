@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Exline.Notifier.Data.Collections;
 using MongoDB.Bson;
 using System.Linq;
+using Exline.Notifier.Data.Collections;
 
 namespace Exline.Notifier.Data.Mongodb
 {

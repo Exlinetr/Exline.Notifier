@@ -1,9 +1,7 @@
-﻿using Exline.Notifier.Data.Collections;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using MongoDB.Bson;
+using Exline.Notifier.Data.Collections;
 
 namespace Exline.Notifier.Data.Mongodb
 {
@@ -13,7 +11,7 @@ namespace Exline.Notifier.Data.Mongodb
         {
         }
 
-        public Result AddClient(string groupId, string clientId)
+        public Result ClientAdd(string groupId, string clientId)
         {
             return new Result(DbConnector.Insert<GroupClientCollection>(new GroupClientCollection(clientId, groupId)));
         }
@@ -54,7 +52,7 @@ namespace Exline.Notifier.Data.Mongodb
         {
             return new Result(DbConnector.Delete<GroupCollection>(new ObjectId(groupId)));
         }
-        public Result RemoveClient(string groupId, string clientId)
+        public Result ClientRemove(string groupId, string clientId)
         {
             MongoDB.Driver.IMongoQuery query = MongoDB.Driver.Builders.Query.And(new List<MongoDB.Driver.IMongoQuery>()
             {

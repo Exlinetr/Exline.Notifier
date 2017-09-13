@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Exline.Notifier.Core.Services.Models
 {
     public class Client : Base
