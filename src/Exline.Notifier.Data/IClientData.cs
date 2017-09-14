@@ -9,8 +9,6 @@ namespace Exline.Notifier.Data
         Collections.ClientCollection GetById(string clientId);
         bool ExistsByToken(string token);
         string GetTokenById(string clientId);
-
         PaginationResult<Collections.ClientCollection> GetList(int pageIndex, int pageSize);
-
     }
 }

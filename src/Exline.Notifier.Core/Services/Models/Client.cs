@@ -11,7 +11,10 @@ namespace Exline.Notifier.Core.Services.Models
         {
             Id = clientCollection.Id;
             Info = ClientFactory.Create(clientCollection);
+            Device=new Device();
         }
         public Framework.PushNotification.IClient Info { get; set; }
+        public Localization Localization{get;set;}
+        public Device Device{get;set;}
     }
 }

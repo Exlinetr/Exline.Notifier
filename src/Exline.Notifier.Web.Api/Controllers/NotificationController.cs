@@ -32,6 +32,14 @@ namespace Exline.Notifier.Web.Api.Controllers
             throw new System.NotImplementedException();
         }
 
+        [HttpDelete]
+        [Route("api/notification/{id}")]
+        public Result RemoveById(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
     }
 
 }
