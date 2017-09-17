@@ -9,55 +9,61 @@ namespace Exline.Notifier.Web.Api.Controllers
         public GroupController()
             : base()
         {
-            Service = new Core.Services.GroupService(Config);
+            
         }
 
         [HttpPost]
-        [Route("api/group/create")]
-        public Result Create(Models.Request.RequestGroupModel group)
+        [Route("api/{applicationId}/group/create")]
+        public Result<Core.Services.Models.Group> Create(string applicationId,Models.Request.RequestGroupModel group)
         {
-            Result result = new Result();
-            return result;
+            Service = new Core.Services.GroupService(applicationId,Config);
+            return Service.Create(group.Name);
         }
 
         [HttpDelete]
-        [Route("api/group/{id}/delete")]
-        public Result DeleteById(string id)
+        [Route("api/{applicationId}/group/{id}")]
+        public Result DeleteById(string applicationId,string id)
         {
+            Service = new Core.Services.GroupService(applicationId,Config);
             return Service.Remove(id);
         }
         [HttpPatch]
-        [Route("api/group/{id}/name")]
-        public Result NameUpdate(string id, string name)
+        [Route("api/{applicationId}/group/{id}/name")]
+        public Result NameUpdate(string applicationId,string id, string name)
         {
+            Service = new Core.Services.GroupService(applicationId,Config);
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        [Route("api/groups/{pageIndex}/{pageSize}")]
-        public Result<PaginationResult<Core.Services.Models.Group>> GetList(int pageIndex, int pageSize)
+        [Route("api/{applicationId}/groups/{pageIndex}/{pageSize}")]
+        public Result<PaginationResult<Core.Services.Models.Group>> GetList(string applicationId,int pageIndex, int pageSize)
         {
+            Service = new Core.Services.GroupService(applicationId,Config);
             return Service.GetList(pageIndex, pageSize);
         }
 
         [HttpPost]
-        [Route("api/group/{id}/clientadd")]
-        public Result ClientAdd(string id,string clientId)
+        [Route("api/{applicationId}/group/{id}/clientadd")]
+        public Result ClientAdd(string applicationId,string id,string clientId)
         {
+            Service = new Core.Services.GroupService(applicationId,Config);
             return Service.ClientAdd(id,clientId);
         }
 
         [HttpDelete]
-        [Route("api/group/{id}/clientremove")]
-        public Result ClientRemove(string id,string clientId)
+        [Route("api/{applicationId}/group/{id}/clientremove")]
+        public Result ClientRemove(string applicationId,string id,string clientId)
         {
+            Service = new Core.Services.GroupService(applicationId,Config);
             return Service.ClientRemove(id,clientId);
         }
 
         [HttpGet]
-        [Route("api/group/{id}/clients/{pageIndex}/{pageSize}")]
-        public Result<PaginationResult<Core.Services.Models.Client>> GetClients(string id,int pageIndex,int pageSize)
+        [Route("api/{applicationId}/group/{id}/clients/{pageIndex}/{pageSize}")]
+        public Result<PaginationResult<Core.Services.Models.Client>> GetClients(string applicationId,string id,int pageIndex,int pageSize)
         {
+            Service = new Core.Services.GroupService(applicationId,Config);
             return Service.GetClients(id,pageIndex,pageSize);
 
         }

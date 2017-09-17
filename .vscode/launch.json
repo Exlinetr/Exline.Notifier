@@ -2,13 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (web)",
+            "name": "Web.Api (Debug Mode)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\bin\\Debug\\netcoreapp1.1\\Exline.Notifier.Web.Api.dll",
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
@@ -26,7 +26,12 @@
                 }
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "dbName":"notification-api",
+                "dbServer":"localhost",
+                "dbPort":"27017",
+                "dbUser":"local-dbuser",
+                "dbPassword":"local-dbPassword"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceRoot}/Views"

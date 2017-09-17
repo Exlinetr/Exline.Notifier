@@ -3,8 +3,8 @@ namespace Exline.Notifier.Core.Services
 {
     public sealed class ClientService : BaseService
     {
-        public ClientService(Config config)
-            : base(config)
+        public ClientService(string applicationId, Config config)
+            : base(applicationId, config)
         {
 
         }
@@ -19,13 +19,18 @@ namespace Exline.Notifier.Core.Services
                     result.SetErr("$gecersiz_token");
                     return result;
                 }
-                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
+                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config)
+                                                        .Create(ApplicationId);
                 if (!clientData.ExistsByToken(token))
                 {
                     Data.Collections.ClientCollection clientCollection = new Data.Collections.ClientCollection(token, deviceType);
                     result = new Result<Models.Client>(clientData.Create(clientCollection));
                     if (result)
+                    {
+                        ApplicationService applicationService=new ApplicationService(ApplicationId,Config);
+                        applicationService.TotalClientCountIncrement(1);
                         result.OK(new Models.Client(clientCollection));
+                    }
                 }
                 else
                 {
@@ -50,7 +55,7 @@ namespace Exline.Notifier.Core.Services
                     result.SetErr("$gecersiz_client_id");
                     return result;
                 }
-                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
+                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create(ApplicationId);
                 result = clientData.Remove(clientId);
                 if (result)
                     result.OK(clientId);
@@ -77,7 +82,7 @@ namespace Exline.Notifier.Core.Services
                     result.SetErr("$gecersiz_token");
                     return result;
                 }
-                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
+                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create(ApplicationId);
                 result = clientData.TokenUpdate(clientId, token);
                 if (result)
                 {
@@ -101,7 +106,7 @@ namespace Exline.Notifier.Core.Services
                 pageIndex = PageIndexControl(pageIndex);
                 pageSize = PageSizeControl(pageSize);
 
-                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
+                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create(ApplicationId);
                 PaginationResult<Data.Collections.ClientCollection> pageResult = clientData.GetList(pageIndex, pageSize);
                 result.OK(pageResult.To<Models.Client>(x => new Models.Client(x)));
             }
@@ -122,7 +127,7 @@ namespace Exline.Notifier.Core.Services
                     result.SetErr("$gecersiz_client_id");
                     return result;
                 }
-                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
+                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create(ApplicationId);
                 Data.Collections.ClientCollection clientCollection = clientData.GetById(clientId);
                 result.OK(new Models.Client(clientCollection));
             }
@@ -143,7 +148,7 @@ namespace Exline.Notifier.Core.Services
                     result.SetErr("$gecersiz_client_id");
                     return result;
                 }
-                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
+                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create(ApplicationId);
                 string token = clientData.GetTokenById(clientId);
                 if (!string.IsNullOrEmpty(token))
                     result.OK(token);
@@ -162,7 +167,7 @@ namespace Exline.Notifier.Core.Services
             Result result = new Result();
             try
             {
-                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
+                Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create(ApplicationId);
                 result.OK(clientData.ExistsByToken(token));
             }
             catch (Exception ex)

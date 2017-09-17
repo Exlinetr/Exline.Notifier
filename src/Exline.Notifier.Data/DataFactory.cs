@@ -12,7 +12,7 @@ namespace Exline.Notifier.Data
             {
                 if (_concretes == null)
                 {
-
+                    Load();
                 }
                 return _concretes;
             }
@@ -23,6 +23,7 @@ namespace Exline.Notifier.Data
         }
         static DataFactory()
         {
+            Load();
         }
         protected Config Config { get; set; }
 
@@ -40,7 +41,29 @@ namespace Exline.Notifier.Data
             {
                 Type concreteType = GetConcreteType(interfaceType, dbConcretes);
                 if (concreteType != null)
-                    data = (TIData)Activator.CreateInstance(concreteType);
+                    data = (TIData)Activator.CreateInstance(concreteType, Config);
+            }
+            return data;
+            //return Create(Config);
+        }
+        public TIData Create(params object[] args)
+        {
+            // object[] newArgs = new object[args.Length + 1];
+            // for (int i = 0; i < args.Length; i++)
+            // {
+            //     newArgs[i] = args[i];
+            // }
+            // if(!(newArgs[newArgs.Length-1] is Config){
+            //     newArgs[newArgs.Length-1]=Config;
+            // }
+            TIData data = default(TIData);
+            Type interfaceType = typeof(TIData);
+            Dictionary<string, Type> dbConcretes = GetDbConcretes(Config.DbServer.Type);
+            if (dbConcretes != null)
+            {
+                Type concreteType = GetConcreteType(interfaceType, dbConcretes);
+                if (concreteType != null)
+                    data = (TIData)Activator.CreateInstance(concreteType, args);
             }
             return data;
         }
@@ -61,7 +84,8 @@ namespace Exline.Notifier.Data
             Concretes.Add(DbType.Mongodb, new Dictionary<string, Type>()
             {
                 {typeof(IClientData).Name,typeof(Mongodb.ClientData)},
-                {typeof(IGroupData).Name,typeof(Mongodb.GroupData) }
+                {typeof(IGroupData).Name,typeof(Mongodb.GroupData) },
+                {typeof(IApplicationData).Name,typeof(Mongodb.ApplicationData)}
             });
         }
     }

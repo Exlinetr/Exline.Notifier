@@ -4,9 +4,9 @@ using System.Linq.Expressions;
 
 namespace Exline.Notifier.Data.Mongodb
 {
-    internal abstract class BaseData<T> : Data.BaseData<T> where T : IData
+    public abstract class BaseData<T> : Data.BaseData<T> where T : IData
     {
-        protected Expression<Func<Collections.BaseCollection, bool>> DefaultQuery{get;set;};
+        protected Expression<Func<Collections.BaseCollection, bool>> DefaultQuery{get;set;}
         protected MongoDB.Driver.IMongoQuery DefaultIMongoQuery{get;set;}
         protected Framework.Data.MongoDb.DbConnector DbConnector { get; set; }
         public BaseData(Config config) : base(config)

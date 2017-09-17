@@ -1,0 +1,45 @@
+{
+    "version": "0.0.1-beta",
+    "authors": ["Muhammet Furkan DOĞAN"],
+    "description": "push notification system api",
+    "copyright": "exlinetr",
+    "configurations": {
+        "Debug": {
+            "compilationOptions": {
+                "define": [
+                    "DEBUG",
+                    "NETCORE_2_0"
+                ]
+            }
+        },
+        "Release": {
+            "compilationOptions": {
+                "define": [
+                    "WEB",
+                    "NETCORE_2_0",
+                    "TRACE"
+                ],
+                "optimize": true
+            }
+        }
+    },
+    "dependencies": {
+        "Microsoft.ApplicationInsights.AspNetCore": "2.0.1",
+        "Microsoft.AspNetCore": "2.0.0",
+        "Microsoft.AspNetCore.Mvc": "2.0.0",
+        "Microsoft.AspNetCore.StaticFiles": "2.0.0",
+        "Microsoft.Extensions.Logging.Debug": "2.0.0",
+        "Microsoft.VisualStudio.Web.BrowserLink": "2.0.0",
+        "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0"
+    },
+    "frameworks": {
+        "dotnet": {
+            "imports": "portable-net45+win81"
+        },
+        "exframeworks":{
+            "Exline.Framework":{
+                "assembly":"../../exframeworks/Exline.Framework.dll"
+            }
+        }
+    }
+}

@@ -5,8 +5,14 @@ namespace Exline.Notifier.Core.Services
     public abstract class BaseService : IService
     {
         protected Config Config { get; set; }
+        protected string ApplicationId { get; set; }
         public BaseService(Config config)
+            : this(string.Empty, config)
         {
+        }
+        public BaseService(string applicationId, Config config)
+        {
+            ApplicationId = applicationId;
             Config = config;
         }
 

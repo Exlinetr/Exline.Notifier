@@ -1,5 +1,5 @@
 
-namespace Exline.Notifier.Web.Api.Models
+namespace Exline.Notifier.Web.Api.Models.Response
 {
     public class ResponseNotificationModel
     {

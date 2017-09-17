@@ -13,7 +13,7 @@ namespace Exline.Notifier.Data.Collections
             CreatedDate = DateTime.Now;
         }
         public string Id { get; set; }
-        public string AppId{get;set;}
+        public string AppId { get; set; }
         public string CustomerId { get; set; }
         public DateTime LastUpdatedDate { get; set; }
         public DateTime CreatedDate { get; set; }

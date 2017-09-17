@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Exline.Notifier.Web.Api
 {
@@ -40,7 +44,15 @@ namespace Exline.Notifier.Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services
+                .AddMvc(options =>
+                {
+                })
+                .AddJsonOptions(jsonOptions =>
+                {
+                    jsonOptions.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
+                    jsonOptions.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,8 +60,10 @@ namespace Exline.Notifier.Web.Api
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=notification}/{action=index}");
+            });
         }
     }
 }

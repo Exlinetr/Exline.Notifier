@@ -55,8 +55,8 @@ namespace Exline.Notifier
             IsOk = isOk;
             Message = message;
             Code = code;
-            HelpLink = helpLink;
             Data = data;
+            HelpLink = helpLink;
         }
         public void SetErr(string message, int code = 0, string helpLink = null)
         {
