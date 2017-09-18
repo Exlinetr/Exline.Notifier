@@ -4,6 +4,7 @@ using System;
 
 namespace Exline.Notifier.Web.Api.Controllers
 {
+    [CustomAuthorize]
     public class NotificationController : BaseController
     {
         public NotificationController()
@@ -19,7 +20,7 @@ namespace Exline.Notifier.Web.Api.Controllers
         }
         [HttpPost]
         [Route("api/{applicationId}/notification/send")]
-        public Result Send(string applicationId, RequestNotificationModel notification)
+        public Result Send(string applicationId, [FromBody]RequestNotificationModel notification)
         {
             throw new System.NotImplementedException();
         }

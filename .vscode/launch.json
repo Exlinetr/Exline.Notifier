@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\bin\\Debug\\netcoreapp1.1\\Exline.Notifier.Web.Api.dll",
+            "program": "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\bin\\Debug\\netcoreapp2.0\\Exline.Notifier.Web.Api.dll",
             "args": [],
             "cwd": "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\",
             "stopAtEntry": false,
@@ -27,11 +27,47 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "dbName":"notification-api",
-                "dbServer":"localhost",
-                "dbPort":"27017",
-                "dbUser":"local-dbuser",
-                "dbPassword":"local-dbPassword"
+                "dbName": "notification-api",
+                "dbServer": "localhost",
+                "dbPort": "27017",
+                "dbUser": "local-dbuser",
+                "dbPassword": "local-dbPassword"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": "Web.Api (Release Mode)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\bin\\Release\\netcoreapp2.0\\Exline.Notifier.Web.Api.dll",
+            "args": ["-c","Release"],
+            "cwd": "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "dbName": "notification-api",
+                "dbServer": "localhost",
+                "dbPort": "27017",
+                "dbUser": "local-dbuser",
+                "dbPassword": "local-dbPassword"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceRoot}/Views"

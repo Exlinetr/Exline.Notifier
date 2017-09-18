@@ -4,8 +4,8 @@ namespace Exline.Notifier.Core.Services
 {
     public sealed class GroupService : BaseService
     {
-        public GroupService(string applicationId,Config config) 
-            : base(applicationId,config)
+        public GroupService(string applicationId, Config config)
+            : base(applicationId, config)
         {
 
         }
@@ -21,7 +21,7 @@ namespace Exline.Notifier.Core.Services
                     return result;
                 }
                 Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create(ApplicationId);
-                result = new Result<Models.Group>(groupData.Create(name));
+                result = new Result<Models.Group>(groupData.Create(ApplicationId, name));
                 if (result)
                     result.OK(new Models.Group(name));
 
@@ -45,7 +45,7 @@ namespace Exline.Notifier.Core.Services
                     return result;
                 }
                 Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create(ApplicationId);
-                result = groupData.Remove(groupId);
+                result = groupData.Remove(ApplicationId, groupId);
                 if (result)
                     result.OK();
             }
@@ -66,7 +66,8 @@ namespace Exline.Notifier.Core.Services
                 pageSize = PageSizeControl(pageSize);
 
                 Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create();
-                PaginationResult<Data.Collections.GroupCollection> pageResult = groupData.GetList(pageIndex, pageSize);
+                PaginationResult<Data.Collections.GroupCollection> pageResult = groupData.GetList(ApplicationId, pageIndex, pageSize);
+                pageResult.SetPageInfo(pageIndex, pageSize);
                 result.OK(pageResult.To(x => new Models.Group(x)));
             }
             catch (Exception ex)
@@ -77,12 +78,12 @@ namespace Exline.Notifier.Core.Services
             return result;
         }
 
-        public Result<PaginationResult<Models.Client>> GetClients(string groupId,int pageIndex,int pageSize)
+        public Result<PaginationResult<Models.Client>> GetClients(string groupId, int pageIndex, int pageSize)
         {
-            Result<PaginationResult<Models.Client>> result=new Result<PaginationResult<Models.Client>>();
+            Result<PaginationResult<Models.Client>> result = new Result<PaginationResult<Models.Client>>();
             try
             {
-                if(string.IsNullOrEmpty(groupId))
+                if (string.IsNullOrEmpty(groupId))
                 {
                     result.SetErr("$gecersiz_group_id");
                     return result;
@@ -91,7 +92,8 @@ namespace Exline.Notifier.Core.Services
                 pageSize = PageSizeControl(pageSize);
 
                 Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create(ApplicationId);
-                PaginationResult<Data.Collections.ClientCollection> pageResult = groupData.GetClients(groupId,pageIndex, pageSize);
+                PaginationResult<Data.Collections.ClientCollection> pageResult = groupData.GetClients(ApplicationId, groupId, pageIndex, pageSize);
+                pageResult.SetPageInfo(pageIndex, pageSize);
                 result.OK(pageResult.To<Models.Client>(x => new Models.Client(x)));
             }
             catch (Exception ex)
@@ -101,19 +103,21 @@ namespace Exline.Notifier.Core.Services
             }
             return result;
         }
-        public Result ClientAdd(string groupId,string clientId)
+        public Result ClientAdd(string groupId, string clientId)
         {
-            Result result=new Result();
+            Result result = new Result();
             try
             {
-                if(string.IsNullOrEmpty(groupId)){
+                if (string.IsNullOrEmpty(groupId))
+                {
                     result.SetErr("$gecersiz_group_id");
                 }
-                if(string.IsNullOrEmpty(clientId)){
+                if (string.IsNullOrEmpty(clientId))
+                {
                     result.SetErr("$gecersiz_client_id");
                 }
                 Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create(ApplicationId);
-                result=groupData.ClientAdd(groupId,clientId);
+                result = groupData.ClientAdd(ApplicationId, groupId, clientId);
                 result.OK();
             }
             catch (Exception ex)
@@ -123,19 +127,21 @@ namespace Exline.Notifier.Core.Services
             }
             return result;
         }
-        public Result ClientRemove(string groupId,string clientId)
+        public Result ClientRemove(string groupId, string clientId)
         {
-            Result result=new Result();
+            Result result = new Result();
             try
             {
-                if(string.IsNullOrEmpty(groupId)){
+                if (string.IsNullOrEmpty(groupId))
+                {
                     result.SetErr("$gecersiz_group_id");
                 }
-                if(string.IsNullOrEmpty(clientId)){
+                if (string.IsNullOrEmpty(clientId))
+                {
                     result.SetErr("$gecersiz_client_id");
                 }
                 Data.IGroupData groupData = new Data.DataFactory<Data.IGroupData>(Config).Create(ApplicationId);
-                result=groupData.ClientRemove(groupId,clientId);
+                result = groupData.ClientRemove(ApplicationId, groupId, clientId);
                 result.OK();
             }
             catch (Exception ex)

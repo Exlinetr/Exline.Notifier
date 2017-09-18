@@ -1,3 +1,4 @@
+using System.Linq;
 using Exline.Notifier.Data.Collections;
 using MongoDB.Bson;
 
@@ -15,6 +16,16 @@ namespace Exline.Notifier.Data.Mongodb
             return new Result(DbConnector.Insert<Collections.ApplicationCollection>(application));
         }
 
+        public bool ExistsByName(string name)
+        {
+            return DbConnector.Exists<Collections.ApplicationCollection>(x => x.Name.ToLower() == name.ToLower());
+        }
+
+        public string GetApplicationIdByApiKeyId(string apiKeyId)
+        {
+            return DbConnector.Filter<Collections.ApplicationCollection,string>(x=>x.CurrentApiKeyId==apiKeyId,x=>x.Id).FirstOrDefault();
+        }
+
         public ApplicationCollection GetById(string applicationId)
         {
             return DbConnector.Find<ApplicationCollection>(x=>x.Id==applicationId);
@@ -24,13 +35,24 @@ namespace Exline.Notifier.Data.Mongodb
         {
             PaginationResult<ApplicationCollection> result = new PaginationResult<ApplicationCollection>();
             result.TotalCount = (int)DbConnector.Count<ApplicationCollection>();
-            result.Data=DbConnector.Filter<ApplicationCollection>(pageIndex,pageSize);
+            result.Items=DbConnector.Filter<ApplicationCollection>(pageIndex,pageSize);
             return result;
         }
 
         public Result Remove(string applicationId)
         {
-            return new Result(DbConnector.Delete<ApplicationCollection>(new ObjectId(applicationId)));
+            MongoDB.Driver.IMongoQuery query = MongoDB.Driver.Builders.Query<ApplicationCollection>.EQ(x => x.Id, applicationId);
+            return new Result(DbConnector.Delete<ApplicationCollection>(query, MongoDB.Driver.RemoveFlags.Single));
+        }
+
+        public Result TokenAdd(AuthorizeCollection authorize)
+        {
+            return new Result(DbConnector.Insert<AuthorizeCollection>(authorize));
+        }
+
+        public Result TokenAdd(string applicationId, AuthorizeCollection authorize)
+        {
+            throw new System.NotImplementedException();
         }
 
         public Result TotalClientCountIncrement(string applicationId, int value)

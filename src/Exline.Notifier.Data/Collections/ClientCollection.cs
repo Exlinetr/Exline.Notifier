@@ -4,8 +4,9 @@ namespace Exline.Notifier.Data.Collections
     public class ClientCollection
         : BaseCollection
     {
-        public ClientCollection(string token, DeviceType device)
+        public ClientCollection(string applicationId, string token, DeviceType device)
         {
+            AppId = applicationId;
             Token = token;
             DeviceType = device;
         }
@@ -13,8 +14,8 @@ namespace Exline.Notifier.Data.Collections
         public DeviceType DeviceType { get; set; }
         public int TimeZone { get; set; }
         public string Language { get; set; }
-        public string Country{get;set;}
-        public string DeviceOS{get;set;}
-        public string DeviceModel{get;set;}
+        public string Country { get; set; }
+        public string DeviceOS { get; set; }
+        public string DeviceModel { get; set; }
     }
 }

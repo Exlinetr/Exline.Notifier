@@ -10,5 +10,9 @@ namespace Exline.Notifier.Data
         Result TotalSendNotificationCountIncrement(string applicationId,int value);
 
         Result TotalClientCountIncrement(string applicationId,int value);
+
+        bool ExistsByName(string name);
+
+        string GetApplicationIdByApiKeyId(string apiKeyId);
     }
 }

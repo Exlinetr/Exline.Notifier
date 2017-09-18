@@ -46,6 +46,10 @@ namespace Exline.Notifier
         {
             Set(true, "$basarili", (int)Framework.Net.Http.ResponseStatus.OK, string.Empty, data);
         }
+        public void Unauthorized()
+        {
+            Set(false, "$yetkisiz", (int)Framework.Net.Http.ResponseStatus.UNAUTHORIZED, string.Empty, default(T));
+        }
         public void Error()
         {
             Set(false, string.Empty, (int)Framework.Net.Http.ResponseStatus.INTERNAL_SERVER_ERROR, string.Empty, default(T));

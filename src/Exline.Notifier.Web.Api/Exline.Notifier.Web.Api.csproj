@@ -45,6 +45,14 @@
       <HintPath>..\..\exframeworks\Exline.Framework.Logger.dll</HintPath>
       <Private>true</Private>
     </Reference>
+    <Reference Include="Exline.Framework.PushNotification">
+      <HintPath>..\..\exframeworks\Exline.Framework.PushNotification.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Exline.Framework.PushNotification.FirebaseCloudMessage">
+      <HintPath>..\..\exframeworks\Exline.Framework.PushNotification.FirebaseCloudMessage.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
   </ItemGroup>
 
 </Project>

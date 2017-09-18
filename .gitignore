@@ -12,6 +12,15 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+#df user specific
+
+cli-linux
+docker
+test
+scripts
+
+#df end
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

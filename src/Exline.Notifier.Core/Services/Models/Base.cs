@@ -9,6 +9,7 @@ namespace Exline.Notifier.Core.Services.Models
             Id = Guid.NewGuid().ToString();
         }
         public string Id { get; set; }
+        public string ApplicationId { get; set; }
 
     }
 }

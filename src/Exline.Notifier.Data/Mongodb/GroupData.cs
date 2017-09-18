@@ -2,6 +2,8 @@
 using System.Linq;
 using MongoDB.Bson;
 using Exline.Notifier.Data.Collections;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 
 namespace Exline.Notifier.Data.Mongodb
 {
@@ -11,55 +13,67 @@ namespace Exline.Notifier.Data.Mongodb
         {
         }
 
-        public Result ClientAdd(string groupId, string clientId)
+        public Result ClientAdd(string applcationId, string groupId, string clientId)
         {
-            return new Result(DbConnector.Insert<GroupClientCollection>(new GroupClientCollection(clientId, groupId)));
+            return new Result(DbConnector.Insert<GroupClientCollection>(new GroupClientCollection(clientId, groupId) { AppId = applcationId }));
         }
 
-        public PaginationResult<ClientCollection> GetClients(string groupId, int pageIndex, int pageSize)
+        public PaginationResult<ClientCollection> GetClients(string applcationId, string groupId, int pageIndex, int pageSize)
         {
             PaginationResult<ClientCollection> result = new PaginationResult<ClientCollection>();
-            MongoDB.Driver.IMongoQuery query = MongoDB.Driver.Builders.Query<GroupClientCollection>.EQ(x => x.GroupId, groupId);
+            IMongoQuery query = Query<GroupClientCollection>.EQ(x => x.GroupId, groupId);
             result.TotalCount = (int)DbConnector.Count<GroupClientCollection>(query);
-            List<GroupClientCollection> groupClients= DbConnector.Filter<GroupClientCollection>(x => x.GroupId == groupId, pageIndex, pageSize);
+            List<GroupClientCollection> groupClients = DbConnector.Filter<GroupClientCollection>(x => x.GroupId == groupId && x.AppId == applcationId, pageIndex, pageSize);
             List<string> clientIdList = groupClients.Select(x => x.Id).ToList();
-            result.Data = DbConnector.Filter<ClientCollection>(x=> clientIdList.Contains(x.Id));
+            result.Items = DbConnector.Filter<ClientCollection>(x => clientIdList.Contains(x.Id));
             return result;
         }
 
-        public PaginationResult<GroupCollection> GetList(int pageIndex, int pageSize)
+        public PaginationResult<GroupCollection> GetList(string applcationId, int pageIndex, int pageSize)
         {
             PaginationResult<GroupCollection> result = new PaginationResult<GroupCollection>();
             result.TotalCount = (int)DbConnector.Count<GroupCollection>();
-            result.Data = DbConnector.Filter<GroupCollection>(pageIndex, pageSize);
+            result.Items = DbConnector.Filter<GroupCollection>(x => x.AppId == applcationId, pageIndex, pageSize);
             return result;
         }
-        public Result Create(string name)
+        public Result Create(string applcationId, string name)
         {
             return new Result(DbConnector.Insert<GroupCollection>(new GroupCollection()
             {
-                Name = name
+                Name = name,
+                AppId = applcationId
             }));
         }
-        public Result NameUpdate(string groupId, string name)
+        public Result NameUpdate(string applcationId, string groupId, string name)
         {
             Result result = new Result();
-            MongoDB.Driver.IMongoUpdate update = MongoDB.Driver.Builders.Update<GroupCollection>.Set(x => x.Name, name);
-            result = new Result(DbConnector.Update<GroupCollection>(new ObjectId(groupId), update));
+
+            IMongoUpdate update = Update<GroupCollection>.Set(x => x.Name, name);
+            IMongoQuery query = Query.And(new List<IMongoQuery>(){
+                Query<GroupCollection>.EQ(x=>x.Id,groupId),
+                Query<GroupCollection>.EQ(x=>x.AppId,applcationId)
+            });
+            result = new Result(DbConnector.Update<GroupCollection>(query, update));
             return result;
         }
-        public Result Remove(string groupId)
+        public Result Remove(string applcationId, string groupId)
         {
-            return new Result(DbConnector.Delete<GroupCollection>(new ObjectId(groupId)));
-        }
-        public Result ClientRemove(string groupId, string clientId)
-        {
-            MongoDB.Driver.IMongoQuery query = MongoDB.Driver.Builders.Query.And(new List<MongoDB.Driver.IMongoQuery>()
+            IMongoQuery query = Query.And(new List<IMongoQuery>()
             {
-                MongoDB.Driver.Builders.Query<GroupClientCollection>.EQ(x=>x.GroupId,groupId),
-                MongoDB.Driver.Builders.Query<GroupClientCollection>.EQ(x=>x.ClientId,clientId)
+                Query<GroupCollection>.EQ(x => x.Id, groupId),
+                Query<GroupCollection>.EQ(x=>x.AppId,applcationId)
             });
-            return new Result(DbConnector.Delete<GroupClientCollection>(query, MongoDB.Driver.RemoveFlags.Single));
+            return new Result(DbConnector.Delete<GroupCollection>(query, RemoveFlags.Single));
+        }
+        public Result ClientRemove(string applcationId, string groupId, string clientId)
+        {
+            IMongoQuery query = Query.And(new List<IMongoQuery>()
+            {
+                Query<GroupClientCollection>.EQ(x=>x.GroupId,groupId),
+                Query<GroupClientCollection>.EQ(x=>x.ClientId,clientId),
+                Query<GroupCollection>.EQ(x=>x.AppId,applcationId)
+            });
+            return new Result(DbConnector.Delete<GroupClientCollection>(query, RemoveFlags.Single));
         }
     }
 }

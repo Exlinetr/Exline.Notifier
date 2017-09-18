@@ -2,6 +2,9 @@
 using MongoDB.Bson;
 using System.Linq;
 using Exline.Notifier.Data.Collections;
+using System.Collections.Generic;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 
 namespace Exline.Notifier.Data.Mongodb
 {
@@ -12,19 +15,19 @@ namespace Exline.Notifier.Data.Mongodb
         {
         }
 
-        public bool ExistsByToken(string token)
+        public bool ExistsByToken(string applicationId, string token)
         {
-            return DbConnector.Exists<ClientCollection>(x => x.Token == token);
+            return DbConnector.Exists<ClientCollection>(x => x.AppId == applicationId && x.Token == token);
         }
 
-        public ClientCollection GetById(string clientId)
+        public ClientCollection GetById(string applicationId, string clientId)
         {
-            return DbConnector.Find<ClientCollection>(x => x.Id == clientId);
+            return DbConnector.Find<ClientCollection>(x => x.AppId == applicationId && x.Id == clientId);
         }
 
-        public string GetTokenById(string clientId)
+        public string GetTokenById(string applicationId, string clientId)
         {
-            return DbConnector.Filter<ClientCollection, string>(x => x.Id == clientId, x => x.Token).FirstOrDefault();
+            return DbConnector.Filter<ClientCollection, string>(x => x.AppId == applicationId && x.Id == clientId, x => x.Token).FirstOrDefault();
         }
 
         public Result Create(ClientCollection client)
@@ -32,24 +35,34 @@ namespace Exline.Notifier.Data.Mongodb
             return new Result(DbConnector.Insert<ClientCollection>(client));
         }
 
-        public Result Remove(string clientId)
+        public Result Remove(string applicationId, string clientId)
         {
-            return new Result(DbConnector.Delete<ClientCollection>(new ObjectId(clientId)));
+            IMongoQuery query = Query.And(new List<IMongoQuery>()
+            {
+                 Query<ClientCollection>.EQ(x => x.Id, clientId),
+                 Query<ClientCollection>.EQ(x=>x.AppId,applicationId)
+            });
+            return new Result(DbConnector.Delete<ClientCollection>(query, RemoveFlags.Single));
         }
 
-        public Result TokenUpdate(string clientId, string token)
+        public Result TokenUpdate(string applicationId, string clientId, string token)
         {
             Result result = new Result();
-            MongoDB.Driver.IMongoQuery query = MongoDB.Driver.Builders.Query<ClientCollection>.EQ(x => x.Id, clientId);
-            MongoDB.Driver.IMongoUpdate update = MongoDB.Driver.Builders.Update<ClientCollection>.Set(x => x.Token, token).Set(x => x.LastUpdatedDate, DateTime.Now);
+            IMongoQuery query = Query.And(new List<IMongoQuery>()
+            {
+                Query<ClientCollection>.EQ(x => x.Id, clientId),
+                Query<ClientCollection>.EQ(x=>x.AppId,applicationId)
+            });
+
+            IMongoUpdate update = Update<ClientCollection>.Set(x => x.Token, token).Set(x => x.LastUpdatedDate, DateTime.Now);
             return result;
         }
 
-        public PaginationResult<ClientCollection> GetList(int pageIndex, int pageSize)
+        public PaginationResult<ClientCollection> GetList(string applicationId, int pageIndex, int pageSize)
         {
             PaginationResult<ClientCollection> result = new PaginationResult<ClientCollection>();
             result.TotalCount = (int)DbConnector.Count<ClientCollection>();
-            result.Data = DbConnector.Filter<ClientCollection>(pageIndex, pageSize);
+            result.Items = DbConnector.Filter<ClientCollection>(x => x.AppId == applicationId, pageIndex, pageSize);
             return result;
         }
     }

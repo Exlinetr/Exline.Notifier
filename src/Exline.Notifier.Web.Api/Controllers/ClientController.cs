@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exline.Notifier.Web.Api.Controllers
 {
+    [CustomAuthorize]
     public class ClientController : BaseController<Core.Services.ClientService>
     {
         public ClientController() 
@@ -11,8 +12,8 @@ namespace Exline.Notifier.Web.Api.Controllers
         }
 
         [HttpPost]
-        [Route("api/{applicationId}/client/create")]
-        public Result<Core.Services.Models.Client> Create(string applicationId,Models.Request.RequestClientModel client)
+        [Route("api/{applicationId}/client")]
+        public Result<Core.Services.Models.Client> Create(string applicationId,[FromBody]Models.Request.RequestClientModel client)
         {
             Service = new Core.Services.ClientService(applicationId,Config);
             return Service.Create(client.Token, client.DeviceType);

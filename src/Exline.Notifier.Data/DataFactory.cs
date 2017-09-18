@@ -48,14 +48,14 @@ namespace Exline.Notifier.Data
         }
         public TIData Create(params object[] args)
         {
-            // object[] newArgs = new object[args.Length + 1];
-            // for (int i = 0; i < args.Length; i++)
-            // {
-            //     newArgs[i] = args[i];
-            // }
-            // if(!(newArgs[newArgs.Length-1] is Config){
-            //     newArgs[newArgs.Length-1]=Config;
-            // }
+            //object[] newArgs = new object[args.Length + 1];
+            //for (int i = 0; i < args.Length; i++)
+            //{
+            //    newArgs[i] = args[i];
+            //}
+            //if (!(newArgs[newArgs.Length - 1] is Config){
+            //    newArgs[newArgs.Length - 1] = Config;
+            //}
             TIData data = default(TIData);
             Type interfaceType = typeof(TIData);
             Dictionary<string, Type> dbConcretes = GetDbConcretes(Config.DbServer.Type);
@@ -85,7 +85,8 @@ namespace Exline.Notifier.Data
             {
                 {typeof(IClientData).Name,typeof(Mongodb.ClientData)},
                 {typeof(IGroupData).Name,typeof(Mongodb.GroupData) },
-                {typeof(IApplicationData).Name,typeof(Mongodb.ApplicationData)}
+                {typeof(IApplicationData).Name,typeof(Mongodb.ApplicationData)},
+                {typeof(IAuthorizationData).Name,typeof(Mongodb.AuthorizationData)}
             });
         }
     }

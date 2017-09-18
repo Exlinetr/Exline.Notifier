@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exline.Notifier.Web.Api.Controllers
 {
+    [CustomAuthorize]
     public class GroupController 
         : BaseController<Core.Services.GroupService>
     {
@@ -14,7 +15,7 @@ namespace Exline.Notifier.Web.Api.Controllers
 
         [HttpPost]
         [Route("api/{applicationId}/group/create")]
-        public Result<Core.Services.Models.Group> Create(string applicationId,Models.Request.RequestGroupModel group)
+        public Result<Core.Services.Models.Group> Create(string applicationId,[FromBody]Models.Request.RequestGroupModel group)
         {
             Service = new Core.Services.GroupService(applicationId,Config);
             return Service.Create(group.Name);

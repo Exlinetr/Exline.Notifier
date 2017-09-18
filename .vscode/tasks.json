@@ -5,10 +5,20 @@
     "args": [],
     "tasks": [
         {
+          "taskName": "pack"
+        },
+        {
+            "taskName": "clean"
+        },
+        {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\Exline.Notifier.Web.Api.csproj"
+                "-c",
+                "Debug"
             ],
+            // "args": [
+            //     "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\Exline.Notifier.Web.Api.csproj"
+            // ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         }
