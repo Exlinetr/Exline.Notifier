@@ -7,7 +7,13 @@ namespace Exline.Notifier
         public Result() : base()
         {
         }
-
+        public Result(Result result)
+            : this()
+        {
+            this.IsOk = result.IsOk;
+            this.Code = result.Code;
+            this.Message = result.Message;
+        }
         public Result(Framework.Data.Models.Result result) : base(result)
         {
         }
@@ -46,9 +52,21 @@ namespace Exline.Notifier
         {
             Set(true, "$basarili", (int)Framework.Net.Http.ResponseStatus.OK, string.Empty, data);
         }
+        public void Created()
+        {
+            Set(true, "$basarili", (int)Framework.Net.Http.ResponseStatus.CREATED, string.Empty, default(T));
+        }
+        public void Created(T data)
+        {
+            Set(true, "$basarili", (int)Framework.Net.Http.ResponseStatus.CREATED, string.Empty, data);
+        }
         public void Unauthorized()
         {
             Set(false, "$yetkisiz", (int)Framework.Net.Http.ResponseStatus.UNAUTHORIZED, string.Empty, default(T));
+        }
+        public void NotAcceptable(string message)
+        {
+            Set(false, message, (int)Framework.Net.Http.ResponseStatus.OK, string.Empty, default(T));
         }
         public void Error()
         {
@@ -82,6 +100,28 @@ namespace Exline.Notifier
         public static implicit operator bool(Result<T> result)
         {
             return result.IsOk;
+        }
+
+        public static implicit operator Result(Result<T> result)
+        {
+            return new Result()
+            {
+                IsOk = result.IsOk,
+                Code = result.Code,
+                Message = result.Message,
+                HelpLink = result.HelpLink
+            };
+        }
+        public static implicit operator Result<T>(Result result)
+        {
+            return new Result<T>()
+            {
+                IsOk = result.IsOk,
+                Code = result.Code,
+                Message = result.Message,
+                HelpLink = result.HelpLink,
+                Data = default(T)
+            };
         }
 
     }

@@ -44,10 +44,7 @@ namespace Exline.Notifier.Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services
-                .AddMvc(options =>
-                {
-                })
+            services.AddMvc()
                 .AddJsonOptions(jsonOptions =>
                 {
                     jsonOptions.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
@@ -58,8 +55,8 @@ namespace Exline.Notifier.Web.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            // loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            // loggerFactory.AddDebug();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=notification}/{action=index}");

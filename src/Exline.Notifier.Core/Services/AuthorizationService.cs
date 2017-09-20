@@ -45,21 +45,21 @@ namespace Exline.Notifier.Core.Services
             {
                 if (string.IsNullOrEmpty(apiKey))
                 {
-                    result.SetErr("$gecersiz_api_keyi");
+                    result.NotAcceptable("$gecersiz_api_keyi");
                     return result;
                 }
                 Data.IAuthorizationData authorizationData = new Data.DataFactory<Data.IAuthorizationData>(Config).Create();
                 //string applicationId = authorizationData.GetApplicationIdByApiKey(apiKey);
                 if (string.IsNullOrEmpty(applicationId))
                 {
-                    result.SetErr("$gecersiz_uygulama_id");
+                    result.NotAcceptable("$gecersiz_uygulama_id");
                     return result;
                 }
                 Data.Collections.AuthorizeCollection authorizeCollection = new Data.Collections.AuthorizeCollection(applicationId, apiKey);
                 result = new Result<Models.Authorize>(authorizationData.Insert(authorizeCollection));
                 if (result)
                 {
-                    result.OK(new Models.Authorize(authorizeCollection));
+                    result.Created(new Models.Authorize(authorizeCollection));
                 }
 
             }

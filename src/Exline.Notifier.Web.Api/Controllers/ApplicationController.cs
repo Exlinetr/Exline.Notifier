@@ -15,7 +15,9 @@ namespace Exline.Notifier.Web.Api.Controllers
         public Result<Core.Services.Models.Application> Create([FromBody]Models.Request.RequestApplicationModel application)
         {
             Service = new Core.Services.ApplicationService(Config);
-            return Service.Create(application.Name);
+            Result<Core.Services.Models.Application> result = Service.Create(application.Name);
+            Result = result;
+            return result;
         }
 
         [HttpDelete]
@@ -23,14 +25,17 @@ namespace Exline.Notifier.Web.Api.Controllers
         public Result DeleleteById(string id)
         {
             Service = new Core.Services.ApplicationService(Config);
-            return Service.Remove(id);
+            Result = Service.Remove(id);
+            return Result;
         }
         [HttpGet]
         [Route("api/application/{id}")]
         public Result<Core.Services.Models.Application> GetById(string id)
         {
             Service = new Core.Services.ApplicationService(Config);
-            return Service.GetById(id);
+            Result<Core.Services.Models.Application> result = Service.GetById(id);
+            Result = result;
+            return result;
         }
 
         [HttpGet]
@@ -38,7 +43,9 @@ namespace Exline.Notifier.Web.Api.Controllers
         public Result<PaginationResult<Core.Services.Models.Application>> GetList(int pageIndex, int pageSize)
         {
             Service = new Core.Services.ApplicationService(Config);
-            return Service.GetList(pageIndex, pageSize);
+            Result<PaginationResult<Core.Services.Models.Application>> result = Service.GetList(pageIndex, pageSize);
+            Result = result;
+            return result;
         }
 
     }

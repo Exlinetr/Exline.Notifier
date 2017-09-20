@@ -16,7 +16,7 @@ namespace Exline.Notifier.Core.Services
             {
                 if (string.IsNullOrEmpty(token))
                 {
-                    result.SetErr("$gecersiz_token");
+                    result.NotAcceptable("$gecersiz_token");
                     return result;
                 }
                 Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config)
@@ -29,12 +29,12 @@ namespace Exline.Notifier.Core.Services
                     {
                         ApplicationService applicationService = new ApplicationService(ApplicationId, Config);
                         applicationService.TotalClientCountIncrement(1);
-                        result.OK(new Models.Client(clientCollection));
+                        result.Created(new Models.Client(clientCollection));
                     }
                 }
                 else
                 {
-                    result.SetErr("$bu_token_ile_bir_kullanici_katiyli");
+                    result.NotAcceptable("$bu_token_ile_bir_kullanici_katiyli");
                 }
 
             }
@@ -52,7 +52,7 @@ namespace Exline.Notifier.Core.Services
             {
                 if (string.IsNullOrEmpty(clientId))
                 {
-                    result.SetErr("$gecersiz_client_id");
+                    result.NotAcceptable("$gecersiz_client_id");
                     return result;
                 }
                 Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
@@ -74,12 +74,12 @@ namespace Exline.Notifier.Core.Services
             {
                 if (string.IsNullOrEmpty(clientId))
                 {
-                    result.SetErr("$gecersiz_client_id");
+                    result.NotAcceptable("$gecersiz_client_id");
                     return result;
                 }
                 if (string.IsNullOrEmpty(token))
                 {
-                    result.SetErr("$gecersiz_token");
+                    result.NotAcceptable("$gecersiz_token");
                     return result;
                 }
                 Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
@@ -125,7 +125,7 @@ namespace Exline.Notifier.Core.Services
             {
                 if (string.IsNullOrEmpty(clientId))
                 {
-                    result.SetErr("$gecersiz_client_id");
+                    result.NotAcceptable("$gecersiz_client_id");
                     return result;
                 }
                 Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
@@ -146,7 +146,7 @@ namespace Exline.Notifier.Core.Services
             {
                 if (string.IsNullOrEmpty(clientId))
                 {
-                    result.SetErr("$gecersiz_client_id");
+                    result.NotAcceptable("$gecersiz_client_id");
                     return result;
                 }
                 Data.IClientData clientData = new Data.DataFactory<Data.IClientData>(Config).Create();
