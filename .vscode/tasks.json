@@ -1,25 +1,37 @@
 {
-    "version": "0.1.0",
-    "command": "dotnet",
-    "isShellCommand": true,
-    "args": [],
+    "version": "2.0.0",
     "tasks": [
+        // {
+        //     "type": "shell",
+        //     "taskName": "webui-gulp",
+        //     "command": "gulp",
+        //     "args": [
+        //         "cd",
+        //         "${workspaceRoot}\\src\\Exline.Notifier.Web.UI",
+        //         "gulp",
+        //         "default"
+        //     ]
+        // },
         {
-          "taskName": "pack"
-        },
-        {
-            "taskName": "clean"
-        },
-        {
-            "taskName": "build",
+            "type": "shell",
+            "taskName": "web-api-build (DEBUG MODE)",
+            "command": "dotnet build",
             "args": [
                 "-c",
-                "Debug"
+                "Debug",
+                "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\Exline.Notifier.Web.Api.csproj"
             ],
-            // "args": [
-            //     "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\Exline.Notifier.Web.Api.csproj"
-            // ],
-            "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "shell",
+            "taskName": "web-api-build (RELEASE MODE)",
+            "command": "dotnet build",
+            "args": [
+                "-c",
+                "Release",
+                "${workspaceRoot}\\src\\Exline.Notifier.Web.Api\\Exline.Notifier.Web.Api.csproj"
+            ],
             "problemMatcher": "$msCompile"
         }
     ]

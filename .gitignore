@@ -15,6 +15,7 @@
 #df user specific
 
 cli-linux
+cli-windows
 docker
 test
 scripts
