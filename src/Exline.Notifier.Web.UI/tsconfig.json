@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "umd",
     "outDir": "./build",
     "noImplicitAny": true,
     "jsx": "react"
@@ -9,7 +9,5 @@
   "include": [
     "src/**/*{ts,tsx}"
   ],
-  "exclude": [
-  
-  ]
+  "exclude": []
 }

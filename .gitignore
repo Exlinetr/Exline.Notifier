@@ -14,11 +14,14 @@
 
 #df user specific
 
-cli-linux
-cli-windows
-docker
-test
-scripts
+#cli-linux/
+cli-windows/
+docker/
+test/
+scripts/
+src/Exline.Notifier.Web.UI/node_module/
+src/Exline.Notifier.Web.UI/build/
+src/Exline.Notifier.Web.UI/debug/
 
 #df end
 

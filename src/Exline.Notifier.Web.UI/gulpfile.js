@@ -8,6 +8,11 @@ gulp.task("build", function () {
         .pipe(ts(tsProject))
         .pipe(gulp.dest('./build'));
 });
+gulp.task("scripts", function () {
+    return gulp.src("./src/**/*{ts,tsx}")
+        .pipe(ts(tsProject))
+        .pipe(gulp.dest('./build'));
+});
 
 gulp.task('watch', ['scripts'], function () {
     gulp.watch('./src/**/*.ts', ['scripts']);

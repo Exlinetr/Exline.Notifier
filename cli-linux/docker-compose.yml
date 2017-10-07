@@ -1,0 +1,42 @@
+version: '3'
+services:
+  notifier.mq:
+    container_name: notifier.messagequeue
+    image: rabbitmq:3.6-alpine
+  env_file: 
+  - ./env/msq.env
+
+  notifier.web:
+    container_name: notifier.web
+    image: exlinetr\notifier.web:0.1
+    build:
+      context: ./publish/web
+      dockerfile: dockerfile
+    env_file:
+    
+      - ./env/web.env
+    ports: 
+      - 1001:80
+    depends_on: 
+      - notifier.web.db
+
+  notifier.web.db:
+    container_name: notifier.web.db
+    image: mongo:3.4
+  notifier.api:
+    container_name: notifier.api
+    image: exlinetr\notifier.api:1.0
+    build:
+      context: ./publish/api
+      dockerfile: dockerfile
+    env_file: 
+      - ./env/api.env
+    ports: 
+        - 1000:80
+    depends_on: 
+      - notifier.api.db
+
+  notifier.api.db:
+    container_name: notifier.api.db
+    image: mongo:3.4
+  

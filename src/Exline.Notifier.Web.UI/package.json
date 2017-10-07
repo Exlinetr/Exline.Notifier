@@ -4,6 +4,8 @@
   "description": "push notification system control panel",
   "author": "Muhammet Furkan DOĞAN <info@exlinetr.com> (https://www.exlinetr.com)",
   "dependencies": {
+    "@types/react-dom": "^15.5.4",
+    "@types/react-router": "^4.0.15",
     "body-parser": "^1.18.2",
     "express": "^4.15.4",
     "express-react-views": "^0.10.2",
@@ -19,10 +21,8 @@
     "typescript": "^2.5.2"
   },
   "scripts": {
-    "gulp": "build",
-    "npm": "install",
-    "start": "node ./build/Startup.js",
-    "test": "echo 'No Error' exit(1)"
+    "start": "gulp build && npm install && node ./build/Startup.js",
+    "test": "echo 'No Error' && exit(1)"
   },
   "repository": {
     "type": "git",
